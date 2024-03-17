@@ -36,11 +36,8 @@ const db=new pg.Client({
 
 db.connect();
 
-/*let items = [
-  { id: 1, title: "Buy milk" },
-  { id: 2, title: "Finish homework" },
-];
-*/
+
+
 //Home Page
 app.get("/",(req,res)=>{
   res.render("home.ejs");
@@ -65,11 +62,12 @@ app.get("/logout", (req, res) => {
 app.get("/user", async (req, res) => {
   if (req.isAuthenticated()) {
     try {
+      let items=[];
       const user = req.user; // Accessing the currently authenticated user info from req.user
-      const result = await db.query("SELECT * FROM items JOIN users ON items.user_id=$1 WHERE email=$2", [user.id,user.email]);
-      const items = result.rows;
+      //const result = await db.query("SELECT * FROM items JOIN users ON items.user_id=$1 WHERE email=$2", [user.id,user.email]);
+      const result = await db.query("SELECT * FROM items WHERE user_id=$1", [user.id]);
+      items=result.rows;
       res.render("user.ejs", {
-        user: user, // Passing the user object to the EJS template
         listTitle: "Today",
         listItems: items,
       });
