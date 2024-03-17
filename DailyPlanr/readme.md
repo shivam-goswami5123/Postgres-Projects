@@ -1,8 +1,5 @@
-# Postgres-Projects
 
-## Web App Involving Postgres Database
-
-### For DailyPlanr Project
+# For DailyPlanr Project
 
 Follow these steps to set up the DailyPlanr project on your local machine:
 
